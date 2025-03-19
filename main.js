@@ -138,6 +138,11 @@ class ElizaChat {
         }
     }
     
+    // Handle API key change
+    changeApiKey() {
+        this.apiKeyModal.style.display = 'flex';
+    }
+
     // Save API key
     saveApiKey() {
         const key = this.apiKeyInput.value.trim();
@@ -145,7 +150,11 @@ class ElizaChat {
             this.API_KEY = key;
             localStorage.setItem('openRouterApiKey', key);
             this.apiKeyModal.style.display = 'none';
-            this.addMessage("Hello! I'm ELIZA. How can I help you today?", 'ai');
+            this.apiKeyInput.value = '';
+            this.apiKeyDisplay.value = '••••••••••••••••';
+            this.addMessage("API key updated successfully. How can I help you?", 'ai');
+        } else {
+            alert('Please enter a valid API key');
         }
     }
     
@@ -298,16 +307,14 @@ class ElizaChat {
     scrollToBottom() {
         this.chatInterface.scrollTop = this.chatInterface.scrollHeight;
     }
-
-    // Handle API key change
-    changeApiKey() {
-        this.apiKeyModal.style.display = 'flex';
-    }
 }
 
 // Initialize the application when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.elizaChat = new ElizaChat();
+    
+    // Make saveApiKey available globally after ElizaChat is instantiated
+    window.saveApiKey = () => window.elizaChat.saveApiKey();
 });
 
 // Show/hide settings panel
@@ -316,11 +323,11 @@ window.addEventListener('click', (event) => {
     if (event.target === settingsPanel) {
         settingsPanel.style.display = settingsPanel.style.display === 'none' ? 'block' : 'none';
         // Update API key display with masked value
-        const apiKey = localStorage.getItem('openrouter_api_key');
+        const apiKey = localStorage.getItem('openRouterApiKey');
         if (apiKey) {
-            apiKeyDisplay.value = '••••••••••••••••';
+            document.getElementById('apiKeyDisplay').value = '••••••••••••••••';
         } else {
-            apiKeyDisplay.value = 'No API key set';
+            document.getElementById('apiKeyDisplay').value = 'No API key set';
         }
     }
 });
@@ -330,7 +337,7 @@ window.addEventListener('click', (event) => {
     const clearButton = document.getElementById('clearButton');
     if (event.target === clearButton) {
         if (confirm('Are you sure you want to clear the chat history?')) {
-            chatMessages.innerHTML = '';
+            document.getElementById('chatMessages').innerHTML = '';
             localStorage.removeItem('chatHistory');
         }
     }
@@ -343,21 +350,5 @@ window.addEventListener('click', (event) => {
         apiKeyModal.style.display = 'none';
     }
 });
-
-// Handle API key save
-window.elizaChat.saveApiKey = () => {
-    const apiKeyInput = document.getElementById('apiKeyInput');
-    const apiKey = apiKeyInput.value.trim();
-    
-    if (apiKey) {
-        localStorage.setItem('openrouter_api_key', apiKey);
-        apiKeyDisplay.value = '••••••••••••••••';
-        document.getElementById('apiKeyModal').style.display = 'none';
-        apiKeyInput.value = '';
-        alert('API key saved successfully!');
-    } else {
-        alert('Please enter a valid API key');
-    }
-};
 
 // Load chat history
