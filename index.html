@@ -183,30 +183,10 @@
             box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
         }
 
-        .send-button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            margin-left: 10px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 18px;
-        }
-
-        .send-button:hover {
-            background-color: var(--secondary);
-        }
-
         .voice-button {
-            background-color: var(--primary);
-            color: white;
+            background-color: transparent;
+            color: var(--primary);
             border: none;
-            border-radius: 50%;
             width: 45px;
             height: 45px;
             margin-left: 10px;
@@ -215,14 +195,15 @@
             justify-content: center;
             align-items: center;
             font-size: 18px;
+            padding: 0;
         }
 
         .voice-button:hover {
-            background-color: var(--secondary);
+            color: var(--secondary);
         }
 
         .voice-button.listening {
-            background-color: #dc3545;
+            color: #dc3545;
             animation: pulse 1.5s infinite;
         }
 
@@ -239,6 +220,25 @@
                 transform: scale(1);
                 opacity: 1;
             }
+        }
+
+        .send-button {
+            background-color: transparent;
+            color: var(--primary);
+            border: none;
+            width: 45px;
+            height: 45px;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            padding: 0;
+        }
+
+        .send-button:hover {
+            color: var(--secondary);
         }
 
         .status-indicator {
@@ -410,6 +410,25 @@
 
             .description {
                 padding: 0 15px 15px 15px;
+            }
+
+            .voice-button,
+            .send-button {
+                min-width: 45px;
+                min-height: 45px;
+                width: 45px;
+                height: 45px;
+                padding: 0;
+                flex-shrink: 0;
+            }
+
+            .input-container {
+                padding: 10px;
+            }
+
+            .chat-input {
+                padding: 10px 15px;
+                font-size: 14px;
             }
         }
     </style>
