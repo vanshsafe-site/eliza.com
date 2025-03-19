@@ -328,6 +328,21 @@
             color: var(--text-primary);
         }
 
+        .api-key-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .api-key-container .settings-select {
+            flex: 1;
+        }
+
+        .api-key-container .control-button {
+            white-space: nowrap;
+            margin: 0;
+        }
+
         /* API Key Modal Styles */
         .modal {
             display: none;
@@ -483,6 +498,16 @@
         
         <div class="settings-panel" id="settingsPanel">
             <div class="settings-title">Settings</div>
+            
+            <div class="settings-option">
+                <label class="settings-label">API Key</label>
+                <div class="api-key-container">
+                    <input type="password" class="settings-select" id="apiKeyDisplay" readonly>
+                    <button class="control-button" id="changeApiKeyButton">
+                        <i class="fas fa-key"></i> Change API Key
+                    </button>
+                </div>
+            </div>
             
             <div class="settings-option">
                 <label class="settings-label">Voice Type</label>
